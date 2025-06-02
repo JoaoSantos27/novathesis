@@ -1,6 +1,8 @@
 \ifcsname pdfelapsedtime\endcsname\else\newcount{\pdfelapsedtime}\pdfelapsedtime=0\fi
 \providecommand{\pdfresettimer}{}
 
+\providecommand{\PROFILING}{0} % Define \PROFILING if not already defined
+
 \ifnum\PROFILING=0\relax
   \newcommand{\texprof}[1]{}
 \else
