@@ -31,11 +31,11 @@ and transitions—elements central to modeling automata and formal languages.
 
 Each formal model in the library is represented by a pair of modules: one for auxiliary tasks like parsing and formatting, and another dedicated to core logic. The main logic modules include:
 \begin{itemize}
-\item \textbf{Regular Expression Module}: Implements word generation, word acceptance checks, conversion of regular expressions into finite automata, and simplification routines.
+\item \textbf{Regular Expression Module}: Implements word generation, word acceptance checking, conversion of regular expressions into finite automata, and simplification routines.
 \item \textbf{Finite Automaton Module}: Provides functions for creating, editing, minimizing, and analyzing finite automata, including conversions between deterministic and nondeterministic forms and detection of useful states.
 \item \textbf{Context Free Grammar Module}: Offers support for word generation and acceptance, validation, removal of left recursion and epsilon productions, and transformations to LL(1) grammars. It also provides computation of First and Follow sets, parsing table construction, and support for LR(0), SLR(1), LR(1), and LALR(1) parsing techniques.
 \item \textbf{Pushdown Automaton Module}: Extends FA functionalities to pushdown automata, covering acceptance, generation, and minimization, with mechanisms for validating determinism and identifying productive and reachable states.
-\item \textbf{Turing Machine Module}: Handles creation, modification, and analysis of Turing machines, including validation, determinism checks, linear boundedness checks, and conversions to finite automata where appropriate.
+\item \textbf{Turing Machine Module}: Handles creation, modification, and analysis of Turing machines, including validation, determinism checking, linear boundedness checking, and conversions to finite automata where appropriate.
 \item \textbf{Composition Module}: Supports operations on model compositions, such as union, concatenation, intersection, and Kleene closure.
 \item \textbf{Poly Module}: Facilitates type conversions and interactions between different model types, including conversions across regular expressions, finite automata, context-free grammars, PDAs, and TMs.
 \item \textbf{Exercises Module}: Manages definition and manipulation of exercises, aligning with the system's pedagogical goals.
@@ -81,8 +81,8 @@ which ensures a clear separation of responsibilities among its components:
     \item \textbf{Model}: The \texttt{OCamlFLAT} library acts as the model layer, 
     handling all the logic and data structures related to formal language theory.
     \item \textbf{View}: This layer includes the graphical components of the system.
-    These components are responsible for the visual representation of models and for handling user interaction.
-    \item \textbf{Controller}: The controller modules process user input and manage communication between the view and the model.
+    The view modules are responsible for the visual representation of models and for handling user interaction.
+    \item \textbf{Controller}: The controller modules process user input and turn them into commands for the view and model.
 \end{itemize}
 A standard operation in OFLAT typically follows this sequence:
 \begin{enumerate}

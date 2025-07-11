@@ -73,7 +73,7 @@ Regular languages are a class of formal languages that can be defined by a regul
 They represent the simplest type of language in the Chomsky hierarchy (Type 3). 
 A language \( L \) is said to be regular if there exists a finite automaton that accepts exactly the strings in \( L \).
 
-Regular languages are defined semantiacly over an alphabet \( \Sigma \) as follows:
+Regular languages are defined semantically over an alphabet \( \Sigma \) as follows:
 \begin{itemize}
     \item The empty language \(\emptyset\) is a regular language.
     \item For each a \( \in \) \( \Sigma \) (a belongs to \( \Sigma \)), the singleton language {a} is a regular language.
@@ -85,7 +85,7 @@ Regular languages are defined semantiacly over an alphabet \( \Sigma \) as follo
 \subsection{Regular Expressions}
 
 Regular expressions are a common way to describe a language in a practical way, 
-it consist of constants, which denote sets of strings, and operator symbols, which then denote operations over these sets. 
+it consists of constants, which denote sets of strings, and operator symbols, which then denote operations over these sets. 
 The following definition is standard, and found as such in most textbooks on formal language theory.
 Given an alphabet \( \Sigma \), regular expressions are built from the following components:
 \begin{itemize}
@@ -118,7 +118,7 @@ L((ab)^* + c) &= L((ab)^*) \cup L(c) \\
 \section{Finite Automata}
 
 Finite automata are among the most basic computational models in automata theory. 
-They consist of a finite number of states and transitions between those states based on input symbols, they are capable of recognizing regular languages.
+They consist of a finite number of states and transitions between those states based on input symbols. They are capable of recognizing regular languages.
 A key concept in understanding how finite automata process input is the notion of a configuration. 
 A configuration represents the current status of the automaton at a particular point during the computation. 
 It is typically defined as a 2-tuple (\(q\),\(w\)), where \(q\) is the current state and \(w\) is the remaining input word. 
@@ -181,7 +181,7 @@ By similar reasoning, the automaton accepts strings such as \texttt{101}, \textt
 
 \subsection{Nondeterministic Finite Automata (NFAs)}
 
-A Nondeterministic Finite Automaton (NFA) is the general case of finite automata, where there are not restricitons on the ammount of transitions with
+A Nondeterministic Finite Automaton (NFA) is the general case of finite automata, where there are not restrictions on the amount of transitions with
 the same input symbol from the same state, as well as \(\lambda\)-transitions. It is defined as a 5-tuple:
 
 \[
@@ -199,7 +199,7 @@ where:
     \]
 \end{itemize}
 Essentially, each element of \(\delta\) contains a pair consisting of a state and an input symbol (or \(\epsilon\)), along with the corresponding next state.
-In a nondeterministic automaton, the value of the transicion function is not a single element of \(Q\) but a subset of it. 
+In a nondeterministic automaton, the value of the transition function is not a single element of \(Q\) but a subset of it. 
 It  defines the set of all possible states that can be reached by the transition. 
 
 For example, if the current state is \(q_1\), the input symbol \(a\) is read, and
@@ -213,9 +213,9 @@ meaning the NFA can make transitions without consuming an input symbol.
 It is also possible for it to remain in the same state during a \(\lambda\)-transition.
 Also, in an NFA, the set \(\delta(q_i, a)\) can be empty, indicating that there is no transition defined for that specific combination of state and input symbol.
 A string is accepted by an NFA if there exists some sequence of possible moves that places the machine in a final state at the end of the string. 
-However, a string is rejected if there is no sequence of moves that can reach a final state. So we can look at nondeterminism as mechanism 
+However, a string is rejected if there is no sequence of moves that can reach a final state. So we can look at nondeterminism as a mechanism 
 by which the machine can always choose the correct path to acceptance, if one exists.
-Consider the as an example of the above described the transition graph in Figure 1.1. It describes a nondeterministic automaton since there are
+Consider the following example of the above described transition graph in Figure 1.1. It describes a nondeterministic automaton since there are
 two transitions labeled \(a\) out of \(q_0\).
 
 \begin{figure}[H]
@@ -229,7 +229,7 @@ two transitions labeled \(a\) out of \(q_0\).
 \section{Finite-State Transducers}
 
 Finite-State Transducers (FSTs) extend the concept of finite automata by associating output symbols with transitions, 
-enabling the transformation of input strings into output strings. They are primarely classified as recognizers even though they generate an output.
+enabling the transformation of input strings into output strings. They are primarily classified as recognizers even though they generate an output.
 An FST is associated with an input that contains a string from an input alphabet $\Sigma$,
 , and an output mechanism that produces a string from an output alphabet $\Gamma$ in response to a given input
 In FSTs, the concept of a configuration is also used, similar to finite automata, however, in this case, 
@@ -286,14 +286,14 @@ The following operations are specific to finite-state transducers:
 
     \item \textbf{Determinization} Given a transducer $T$, the goal is to construct an equivalent deterministic 
     transducer—one with a unique initial state and no two transitions from any state sharing the same input label. 
-    The determination algorithm used can be extended to transducer, though in some cases it may not terminate. 
+    The determination algorithm used can be extended to the transducer, though in some cases it may not terminate. 
     Not all non-deterministic transducers admit equivalent deterministic versions. 
     Characterizations of determinizable transducers have been proposed, along with algorithms for testing determinization. 
 
     \item \textbf{Minimization} There are several algorithms for minimizing transducers.
 
 \end{itemize}
-The two most commonly studied cases of FSTs are Mealy machines and Moore machines, which differ in how they produce output based on the current state and input symbol.
+The two most commonly studied cases of FSTs are Mealy machines and Moore machines, which differ in how they produce the output based on the current state and input symbol.
 Later we will also see more about the general FSTs.
 
 \subsection{Mealy Machines}
@@ -311,7 +311,7 @@ where:
     \item $Q$ is a finite set of internal states,
     \item $\Sigma$ is the input alphabet,
     \item $\Gamma$ is the output alphabet,
-    \item $\delta: Q \times \Sigma \rightarrow Q$ is the transition function,
+    \item $\delta: Q \times \Sigma \rightarrow Q$ is the transition function, which is a total function,
     \item $\theta: Q \times \Sigma \rightarrow \Gamma$ is the output function,
     \item $q_0 \in Q$ is the initial state of $M$.
 \end{itemize}
@@ -367,7 +367,7 @@ where:
     \item $Q$ is a finite set of internal states,
     \item $\Sigma$ is the input alphabet,
     \item $\Gamma$ is the output alphabet,
-    \item $\delta: Q \times \Sigma \rightarrow Q$ is the transition function,
+    \item $\delta: Q \times \Sigma \rightarrow Q$ is the transition function, which is a total function,
     \item $\theta: Q \rightarrow \Gamma$ is the output function,
     \item $q_0 \in Q$ is the initial state.
 \end{itemize}
@@ -383,7 +383,7 @@ a flip-flop circuit.
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.8]{mooreEx1.pdf}
-    \caption{Example of a basic moore machine.}
+    \caption{Example of a basic Moore machine.}
     \label{fig:4}
 \end{figure}
 
@@ -416,7 +416,7 @@ The Mealy machine in Figure 1.5(a) and the Moore machine in Figure 1.5(b) are eq
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.8]{mealymoore.pdf}
-    \caption{Example of a mealy machine and its equivalent moore machine.}
+    \caption{Example of a Mealy machine and its equivalent Moore machine.}
     \label{fig:5}
 \end{figure}
 
@@ -428,7 +428,7 @@ minimal FST, that is, the machine with the smallest number of internal states.
 
 The first step in minimizing a Mealy machine is to remove states that play no role in any computation 
 because they cannot be reached from the initial state. When there are no inaccessible states, 
-the FST is said to be connected. However, a Mealy machine can be connected and still not minimal, as the following example illustrate.
+the FST is said to be connected. However, a Mealy machine can be connected and still not minimal, as the following example illustrates.
 
 The Mealy machine shown in Figure 1.6(a) is connected, but it is clear that the states \( q_1 \) and \( q_2 \) 
 serve the same purpose and can be combined to produce the machine in Figure 1.6(b).
@@ -517,7 +517,8 @@ identical under simple state relabeling. However, this issue is minor and does n
 \subsection{General Finite-State Transducers}
 
 The general case for finite-state transducers includes non-determinism, 
-this introduces important differences and challenges compared to the two deterministic transducer types previously discussed. 
+this introduces important differences compared to the two deterministic transducer types previously discussed, which were very special cases of finite state transducers
+where the notion of word acceptance or rejection are not used, instead focusing on generating output from an input. 
 In non-deterministic FSTs, a single input symbol may lead to multiple possible transitions from a given state, 
 each potentially producing different outputs or no output at all. 
 Furthermore, operations such as determinization, minimization, and output tracing become more involved or even undecidable in certain cases. 
@@ -551,7 +552,7 @@ When computation halts in such a state, the associated output is appended to the
 This design allows the transducer to emit outputs conditionally, depending on whether it has reached the end of the input string.
 
 However, not all FSTs are determinizable, even if they define a function. 
-In some cases, determinization fails because the decision on which path to take requires unbounded lookahead. 
+In some cases, determinization fails because the decision on which path to take requires an unbounded lookahead. 
 For example, in a given transducer, the system might need to read an unlimited number of symbols before choosing the correct transition. 
 This leads to infinite branching in the determinization process, effectively causing the algorithm to loop endlessly without producing a result. 
 Figure~\ref{nondetfst} is an example of a non-deterministic FST that cannot be determinized: \cite{vannoord1997fst}
