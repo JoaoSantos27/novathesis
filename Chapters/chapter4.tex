@@ -8,47 +8,110 @@
 
 \typeout{NT FILE chapter4.tex}%
 
-\chapter{Adding Support to a New School (work in progress)}
-\label{cha:porting_novathesis}
+\chapter{Technologies}
+\label{cha:technologies}
 
-My advice to customize the \novathesis\ template to another School/University/Department/Degree is to browse the existing supported degrees to find one that is \emph{close enough}, and depart from there!
+This chapter provides an overview of the key technologies used in the system. We present
+the OCaml programming language, the mechanisms for interoperability between OCaml and JavaScript, 
+and the use of additional libraries (such as Cytoscape.js) that facilitate both the functional and graphical aspects of
+the platform.
 
-The multitude of layouts supported by the \novathesis\ template is based in a three-tier naming scheme, separated by slashes: University / School / Department-or-Degree.  This three-tier naming scheme is also reflected in a three-tier directory (folder) structure in: \verb!<project_root>a/NOVAthesiFiles/Schools/…!.  For example:
+\section{OCaml Programming Language}
+
+OCaml is a general-purpose, high-level, multi-paradigm programming language that
+extends the Caml dialect of ML with object-oriented features. It was created in 1996 by
+Xavier Leroy, Jérôme Vouillon, Damien Doligez, Didier Rémy, Ascánder Suárez, and others
+at the French Institute for Research in Computer Science and Automation (INRIA). The
+functional programming fragment of OCaml is based on the concept of expressions, where
+computations are performed by evaluating expressions that produce values, naturally
+supporting a declarative programming paradigm. \cite{ocaml_about}
+
+\subsection{Declarative Programming}
+In declarative programing\cite{declarative-programming}, the focus is on describing what the program should accomplish rather than detailing how to achieve it step by step. 
+OCaml supports this style naturally through first-class functions, recursion, and a strong static type system with type inference. 
+These features enable concise code, often resembling mathematical definitions. 
+
+In the context of formal languages and automata theory, 
+OCaml's declarative nature allows the implementation of abstract computational models—such as automata, grammars, 
+or transducers, in a way that resembles their formal definition. This makes OCaml an ideal choice for developing educational tools like OFLAT, 
+where readability, correctness, and alignment with formalism are essential.
+
+\section{interoperability using js\_of\_ocaml}
+
+One of the fundamental technologies enabling the OCamlFLAT/OFLAT system to function as a web-based tool is the \texttt{js\_of\_ocaml} framework. 
+js\_of\_ocaml\cite{js-of-ocaml-manual} is the interoperability solution found for bridging OCaml and JavaScript together in order to
+facilitate the development of web applications in OCaml. Enabling the use of OCaml's type system and functional programming features in web development.
+With this we can build the entire tool in OCaml.
+js\_of\_ocaml is not only a compiler but a varied tool consisting of libraries, bindings, and syntactic utilities 
+that make browser-based application development in OCaml practical and powerful.
+
+\section*{Compiler}
+
+At the core of \texttt{js\_of\_ocaml} is its compiler, which translates OCaml code into JavaScript code. 
+This translation preserves both the semantics and performance characteristics of the original OCaml code, 
+allowing programs written in OCaml to be executed efficiently in any modern web browser.
+This compilation step typically follows the standard OCaml compilation pipeline: 
+the source code is first compiled using \texttt{ocamlc}, and the result is then passed to \texttt{js\_of\_ocaml} for translation into JavaScript.
+
+This approach offers several advantages:
+\begin{itemize}
+  \item Type safety and early error detection provided by OCaml.
+  \item There is no need to manually translate OCaml code to JavaScript.
+\end{itemize}
+
+\section*{Bindings}
+
+To allow interaction with native JavaScript objects and browser APIs, \texttt{js\_of\_ocaml} provides an extensive binding mechanism. 
+These bindings act as bridges between OCaml and the JavaScript world, enabling OCaml code to manipulate DOM elements, call JavaScript functions, 
+or interact with third-party libraries.
+
+For example, the JavaScript \texttt{alert} function can be invoked from OCaml using a binding as follows:
 
 \begin{verbatim}
-…
-| 
-+—— nova
-|   +—— Images
-|   +—— fct
-|   |   \—— Images
-|   +—— ims
-|   |   \—— Images
-|   …
-|   
-\—— uminho
-    +—— Images
-    +—— ea
-    |   \—— Images
-    +—— ec
-    |   \—— Images
-    …
+let global = Js.Unsafe.global
+let alert msg = global##alert (Js.string msg)
 \end{verbatim}
 
-The directory \verb!uminho! contains the customization for all Schools of Universidade do Minho.  This university is an example of the case where the regulations are defined at University level and all the schools apply the same thesis layout and organization.  So, the all the customization is done in the file \verb!uminho/uminho-defaults.ldf!, except the definition of the name and logo of each individual school.
+This snippet wraps the browser's \texttt{window.alert} in an OCaml function, converting the OCaml string to a JavaScript string before invocation
+Bindings can also be used to define OCaml interfaces for complex JavaScript libraries. 
+A practical case is the integration of \texttt{Cytoscape.js}, a graph visualization library used in OFLAT.
+With this binding, OCaml code can add and remove graph elements or perform layout adjustments directly via Cytoscape's API.
 
-As another example, the directory \verb!nova! contains the customization for all Schools from NOVA University Lisbon. This university grants a lot of freedom in the definition of the thesis layouts.  In some cases, they are defined at the School level (e.g., NOVA FCT), while is some other cases they are defined separately for each degree (e.g., NOVA IMS).
+\section*{Syntax Extensions}
+
+To make JavaScript interoperation more idiomatic in OCaml, 
+\texttt{js\_of\_ocaml} provides syntax extensions that support type-safe method invocation and property access. 
+These extensions enable a natural coding style that mimics JavaScript syntax while remaining within OCaml's type system.
+
+\section*{Library}
+
+Beyond the compiler and bindings, \texttt{js\_of\_ocaml} includes a library that exposes a substantial portion of the browser's API. 
+This includes modules for:
+\begin{itemize}
+  \item DOM manipulation (\texttt{Dom\_html}, \texttt{Dom})
+  \item Event handling
+  \item HTML5 APIs
+  \item Canvas and graphics operations
+\end{itemize}
 
 
+\section{Cytoscape.js for Graph Visualization}
+
+Cytoscape.js is an open-source JavaScript library for graph theory analysis and visualization~\cite{cytoscape}. 
+In the context of the OFLAT system, it is used to render automata and tree structures graphically, 
+providing users with an intuitive and interactive interface to construct and manipulate formal models. 
+
+To integrate Cytoscape.js with OCaml, the OFLAT system uses bindings defined in the \texttt{Cytoscape.ml} module. 
+Graph operations such as adding nodes and edges are mapped to JavaScript via \texttt{js\_of\_ocaml}.
+
+\section{Web Technologies Used in OFLAT}
+
+Understanding OFLAT's web-based architecture requires familiarity with several core technologies:
+\begin{itemize}
+    \item \textbf{Web browsers} act as clients that fetch and render web content, translating HTML, CSS, and JavaScript into interactive interfaces~\cite{webbrowsers}.
+    \item \textbf{HTML} provides the structural markup for web pages, defining elements like headers, inputs, and buttons~\cite{html}.
+    \item \textbf{DOM} (Document Object Model) represents the HTML document as a tree of nodes that can be dynamically modified via JavaScript~\cite{dom}.
+    \item \textbf{JavaScript} enables dynamic behavior and interaction within web pages, and is essential for manipulating the DOM~\cite{javascript}.
+\end{itemize}
 
 
-\begin{enumerate}
-  \item Try all the already supported schools and check which one is closer to your needs;
-  \begin{enumerate}
-    \item Edit \verb!Config/1_novathesis.tex! and near line 28 uncomment the line with key \verb!\ntsetup{school=<SOMETHING>}!;
-    \item For each school supported (see the comment), replace \verb!<SOMETHING>! with the school name, e.g., make it \verb!\ntsetup{school=ulisboa/fmv}!
-    \item Recompile and check the document.  Particularly, check the cover layout, the front-page (second cover) layout, the front-matter contents, the bibliography style;
-    \item Repeat for the next school, until you find one close enough.
-  \end{enumerate}
-  \item 
-\end{enumerate}

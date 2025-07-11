@@ -1,0 +1,90 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% chapter5.tex
+%% NOVA thesis document file
+%%
+%% Chapter with lots of dummy text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{NT FILE chapter8.tex}%
+
+\chapter{Work plan}
+\label{cha:work_plan}
+
+This chapter presents the work plan for this dissertation, considering a period of six months.
+The objective of this work is to add support for finite state transducers (FSTs) to the OCamlFLAT/OFLAT educational system, 
+considering three particular cases: the general case, Mealy machines, and Moore machines. A finite state transducer is a finite automaton that, 
+in addition to recognizing words, can produce output during the recognition process. Therefore, an FST also translates an input language into an output language.
+
+The models currently supported in OCamlFLAT/OFLAT are: finite automata, regular expressions, grammars 
+(context-free, context-sensitive, and unrestricted), pushdown automata, and Turing machines.
+
+\section{Support for Finite State Transducers in the OCamlFLAT Library (8 weeks)}
+
+Several functionalities are planned at the library level. Some features might appear to directly extend those of finite automata, 
+but the reality is more complex, for example, not all nondeterministic transducers can be determinized.
+
+The planned functionalities include:
+
+\begin{itemize}
+    \item \textbf{Cleaning function} -- Eliminate from a transducer all unreachable and unproductive states.
+
+    \item \textbf{Classification functions} -- Classify a transducer as nondeterministic, deterministic, determinizable, minimal, Mealy machine, Moore machine, cleaned, etc.
+
+    \item \textbf{Accept function} -- Test if a transducer recognizes a given word and generate the corresponding output word. This will involve studying and instantiating the generic \texttt{accept} operation already available in the library. For words recognized by the transducer, produce a demonstration in the form of a sequence of sentential rewrites.
+
+    \item \textbf{Generate function} -- Determine all words recognized by a transducer up to a given maximum length, along with their corresponding translations. This will involve studying and instantiating the generic \texttt{generate} operation available in the library.
+
+    \item \textbf{Conversion functions} -- Convert a transducer to other model types where it makes sense; for example, convert a transducer to a finite automaton (removing the output), convert a finite automaton to a transducer (using the ``identity'' translation), or convert a transducer to a Turing machine (since Turing machines can represent output).
+
+    \item \textbf{Integration with compound models} -- Integrate transducers into the existing support for compound models in the library. This requires studying composition operations between transducers: union, concatenation, intersection, Kleene closure, etc.
+
+    \item \textbf{Integration with pedagogical exercises} -- Include transducers in the existing support for exercises in the OCamlFLAT library.
+\end{itemize}
+
+\section{Support for Finite State Transducers in the OFLAT Web Application (6 weeks)}
+
+On the graphical side, the existing support for other models---particularly finite automata, which are closely related to transducers---is helpful. However, fully understanding the current implementation is non-trivial, and there are new aspects to handle, related to the fact that transducers generate output.
+
+The tasks include:
+
+\begin{itemize}
+    \item \textbf{Design and implement a graphical representation for transducers} -- Based on graphs and tables, the two representations most commonly used in textbooks. The essential operations will be visualization and editing.
+
+    \item \textbf{Expose transducer operations in the graphical interface} -- Make available in the web interface the operations on transducers implemented in the OCamlFLAT library.
+
+    \item \textbf{Graphically animate word translation} -- Animate the process of translating a word through a transducer.
+
+    \item \textbf{Maintain consistency with other models} -- In general, the functionalities should be consistent with those developed for the other models in OFLAT.
+\end{itemize}
+
+\section{Pedagogical Exercises (1 week)}
+
+Create a collection of interesting pedagogical examples and encode them as a set of exercises in the format supported by OCamlFLAT/OFLAT.
+
+\section{Evaluation (1 week)}
+
+\begin{itemize}
+    \item \textbf{Code correctness} -- Evaluate the correctness of the new code by writing and executing a suite of unit tests during the development process.
+
+    \item \textbf{Stress testing} -- Determine the system’s limits by creating examples that challenge it in terms of size or execution time.
+
+    \item \textbf{User feedback} -- Seek opinions from potential users of the system, especially regarding the graphical interface. For example, consulting instructors and students from the Computation Theory course.
+\end{itemize}
+
+\section{Writing the Dissertation (8 weeks)}
+
+The dissertation writing should ideally progress incrementally in parallel with the other tasks. A period of two months is allocated for producing the final document. It is advisable to have a near-final version ready at least two weeks before the submission deadline to facilitate inviting an external examiner.
+
+
+
+
+% \lipsum[1-100]
+% \lipsum[1-700]
+% \lipsum[1-700]
+% \lipsum[1-700]
+% \lipsum[1-700]
+% \lipsum[1-700]
+% \lipsum[1-700]
+% \lipsum[1-700]
+% \lipsum[1-700]
